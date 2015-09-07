@@ -1,0 +1,15 @@
+// HexagonOS documentation
+// This will be moved to a real documentation system someday...
+
+// Introduction/General/whatelse
+-> introduction.txt
+-> journal.txt
+-> architectures.txt
+
+// Kernel
+-> libkernel.txt
+-> syscalls.txt
+-> naming.txt
+
+// Userland
+-> framework.txt

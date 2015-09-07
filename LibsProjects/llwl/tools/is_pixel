@@ -1,0 +1,5 @@
+int is_pixel(lApp *app, lSurface *surface, unsigned int x, unsigned int y)
+{
+	int i = x * (surface->bpp / 8) + (y * surface->size_line);
+	return (surface->data[i]+surface->data[++i]+surface->data[++i]);
+}

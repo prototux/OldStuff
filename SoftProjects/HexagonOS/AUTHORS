@@ -1,0 +1,19 @@
+Some source codes used by this project (they may use another licence):
+
+	PCI PIO hard drive driver (/devices/storage/pciata) from the OsDev Wiki
+
+	RTC Clock driver (/devices/x86/rtc) based on the OsDev Wiki
+
+	Things that will be here sooner or later:
+		TCC and TinyGL from fabrice bellard.
+
+	Nvidia driver (/devices/video/nvidia) from the pedigree project by James Molloy
+		https://github.com/jmolloy/pedigree
+
+Special thanks to:
+
+	Maxime // KailoKyra, for his help at debuging this, so many times.
+
+	Fabrice Bellard, for his great softwares.
+
+	James Molloy and Kevin Lange, for their Pedigree and Toaruos projects.

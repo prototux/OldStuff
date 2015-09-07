@@ -1,0 +1,19 @@
+// HexagonOS memory map
+
+// Reserved space for the PC:
+0x00000000 to 0x000FFFFF (1 MB): Computer space (VRAM, VBIOS, BIOS, EBDA...)
+0x00F00000 to 0x00FFFFFF (1 MB): ISA memory mapped devices
+0xC0000000 to 0xFFFFFFFF (1 GB): PCI memory mapped devices
+
+// HexagonOS mapping
+
+0x00007E00 to 0x0007FFFF (480KB): Kernel stack?
+
+0x00100000 to 0x00EFFFFF (14 MB): kernel and modules space
+	0x00100000 to 0x003FFFFF: Kernel code
+	0x00400000 to 0x00800000: Page tables
+	0x00800000 to 0x00EFFFFF: Kernel heap
+
+0x01000000 to 0xC0000000 (~3 GB): Userspace RAM (in 32bits mode)
+
+From 0x0000000100000000: Userspace RAM (in 64bits mode)

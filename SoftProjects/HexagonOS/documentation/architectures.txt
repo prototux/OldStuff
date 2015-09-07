@@ -1,0 +1,83 @@
+// HexagonOS architectures
+
+HexagonOS don't assume that cpu = arch, as it's intented for desktop/laptop/general computing and not for servers...
+Basically, it's useless to support (sadly, for some...) the Alpha/MIPS/PPC/Sparc(64)/IA64/etc architectures. HexagonOS is intented to support x86/x64 and arm/arm64
+
+But... it's not only x86, x64, arm, arm64... so, there's the architectures HexagonOS use and their respective specs
+
+/* OldPC architecture
+
+	This is where i come from... the goo... bad'ol PC, so i can have a fully working thing...
+
+	Specs:
+	-> x86/32bits Pmode
+	-> PIC for interrupts
+	-> PIT for timing purposes RTC for clock
+	-> No SMP
+	-> AC'97 audio
+	-> PCI PIO method for hard drives
+	-> (s)VGA-like video
+	-> RTL8139 network
+	-> No ACPI
+	-> No USB (for now)
+	-> PCI-based bus (so.. pci and agp)
+	-> ext2 FS
+*/
+
+/* NewPC architecture
+
+	This is the x86/64 goal...
+
+	-> x64/64bits long mode
+	-> APIC for interrupts
+	-> HPET for time/timer purposes
+	-> SMP, trying to get 4-8 cores working
+	-> HDAudio support
+	-> AHCI/Sata hard drives
+	-> Nvidia/Ati/Intel video (2D only for now)
+	-> RTL8169 gigabit network
+	-> Pci express
+	-> ACPI
+	-> USB
+	-> uEFI boot
+	-> FS not choosed yet
+
+	Things that HexagonOS will probably not support (and it's intented)
+	-> CD/DVDrom drives (seriously, a 4Gb SD card is $5 today)
+	-> Printing support (i don't want to kill myself now, and i don't use it anyway)
+	-> Bluetooth (there's seriously any use for that?)
+
+	Things that HexagonOS will probably not support (but that's not intented)
+	-> Webcam/Video capture
+	-> Wifi
+	-> USB gamepads (maybe the x360 one? i don't know)
+/*
+
+/* HexaPC architecture
+
+	An architecture i can only dream of...
+	This isn't even a real architecture, only some little concepts together...
+
+	-> Custom CPU with true 64bit adress space
+	-> Flash memory mapped in CPU memory space, no hard drives
+	-> No BIOS/uEFI, only a basic bootrom
+	-> SMP-like power management system
+	-> "Deamonizer" circuit to host background deamons (a little ARM that share memory with the CPU)
+	-> Devices that host their own driver in the memory space (a flash chip on the board...)
+
+*/
+
+/* RasPI architecture
+
+	The bootstrap to the ARM port, the Raspberry PI computer :)
+	Note that it's only the OldPC equivalent of the ARM architecture,
+	the final goal is to go with a real ARM computer later
+	-> the ones of the raspi
+
+*/
+
+/* Nonamed ARM computer
+
+	Let's have the raspi working before ;)
+
+*/

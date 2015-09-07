@@ -1,0 +1,63 @@
+I'll try to keep a journal of NoGears... i'm not sure i'll take the time to write into it but... it may worth the try...
+
+# 15/11/2014
+Wow, it's been 2 months since i didn't wrote anything here... sorry... and i just realized that i wrote the same sentence two months ago. at least, i didn't change that much since :p
+
+In fact, it's been 1 month without any coding so... the other month i made the AC'97 driver kinda work, after 2 days working on the _wrong_ fucking file, it wasn't working, and after 2days debbuging a perfectly working ac97.c, i found the bug... in pci.c, shame on me :(
+
+I also did some RTFM-sessions, in particular into compositing (even there's still questions to be answered like should i do the compositor in kernel-space or make the compositor in userland with a privilegied process?), VFS (so i could write some FAT drivers for usb pendrives), and device management... i'm looking into modular things too, so drivers could be kernel modules instead of a complete monolithic bloc.
+
+This may be strange, but i just wanted to do something else, and started thinking about the UI design, even if i'm years-old of having a working UI i think.
+I've already done many sketches and thinking about it, but i'll try to make real mockups so i could work on it. Also, i did some research on typography (yes, i think of it as an art), and i think i'll work with either Lato or Aero-matics as the system font, probably Lato, though. EDIT: did some tests, and yup, Lato, even i don't really like the G (too google for me), the OS is just perfect in lato, way more simple yet classy that in aero matics, so, it's Lato for HexagonOS
+
+The depressing thing about an hobby OS, is the more you progress, the more you can do things... if you could write a good base for it. so, the more you work, the more you'll have to work, so that feature you added will integrate well with the system. i did some AC97 basic stuff, and if i want to do it right, i'll have to write a complete audio stack, including a software mixer. the same apply with the RTL8139 driver and the network stack that will come after.
+Basically, here's the abstraction layers i'll have to code before i could really work on the userspace:
+-Device management
+-VFS
+-Audio stack
+-Network stack
+-Compositer
+
+When this will work correctly, i will the choice to work on separate parts more than an big monolithic bloc.
+But even with that working, and even if i have a complete working kernel... there's still the framework to dev, more work! :p (if you want to do an hobby OS and try to make a working one, you need to know that: it's really a never ending project!)
+
+But i'll try to clean a little bit the code, and commit a first version, even if it's not yet the basic working OS i'll hope it will be someday.
+
+I'll also have to clean a lot the syscalls code...
+
+ // outl(PORT_PCI_CONFIG_ADDRESS, PCI_ENABLE|((Bus&0xFF)<<16)|((Slot&0x1F)<<11)|((Function&0x07)<<8)|(Offset&0xFC));
+  //outl(PORT_PCI_CONFIG_DATA, value);
+
+# 06/09/2014
+Wow, it's been more than a month! So... i've been on other projects, and a urgent need to do some osdev came so... i'm back at HexagonOS again... i've rewrited all the interrupts system, now all interrupts handlers in asm jmp to a stub that call the main handler, the latter calls every handler, so, yep, a pci driver can define it's onw handler now, you can even set multiple handlers for one interrupt, like scheduling/redraw on the clock...
+I also, finally, implemented a somewhat sleep(), it's not perfect, but it does the job... i also added the cmos clock code... it's based on the OSDev wiki code, as... there's no need to reinvent the wheel for that.
+
+I'm looking into compositing (the theory), and how to implement that. ah, and yeah, the mouse/keyboard works again... it was the redraw function that was taking too much time, and as it's in a INTGATE... it "canceled" the ps/2 interrupts (and the hard drive ones as well...)
+
+I don't know if i'll try to add some audio, some network, ACPI, SMP/Multithreading, redo the pagination system, or working on the compositing for the graphics part... all of this looks like PITA for me so...
+
+# 24/07/2014
+Let's go back to HexagonOS... after i'll remember how i mounted the .img on my distrib...
+It's not the mount script... it was the disk image that was corrupted, yeah... now i have some graphic glitches, WTF?
+
+# 6/07/2014
+Ill... that's been two/three days that i only do shitty things... can't even write doc, fuck :(
+It's going a little bit better tonight... i'll to some more documentation (as is the OS will ever attract anyone HAHA).
+
+# 5/07/2014
+Documentation time, not only to do some documentation... also to try to organize what's in my mind for now...
+
+# 2-3/07/2014
+The hard drive problem is "solved", it seemed to be the driver's problem as i ported the osdev wiki source code and it seems to works now...
+
+Refactoring continue, i try to see how to manage the .h correctly, i think i'll do like ChickenOS: all the includes in a include/ folder and working with that... maybe it's a good idea to put the kernel code into a kernel surfolder? i'll see... it looks like i need to rename my typedef as the correct way to do it in C99 is uintX_t, and to put some static keywords where's needed
+
+Also, it looks like i found the final name for that OS, beside the codename nogears: HexagonOS :)
+
+
+# 27/06/2014
+Time to start it... i just ended two days of debug on crunchbang on that weird hard drive issue... sometime it doesn't find / (init_root() fail), sometime it doesn't find /bin/ and sometime it's /bin/sh that doesn't work... at first it looked like it was ext2_read_inode() but with more search i think it's really the bl_read() that doesn't return the correct data... i don't know why, at it works on qemu 1.0 from elementaryOS Luna... i'll try to fix that later, for now, it's been two days, i need to do something else so... refactoring!
+
+That kernel needed it, the whole repo was a mess of random files: bad names (rtl8139 drivers at network.c), everything in the same folder, etc... it can't work like this anymore, that project became big enough that it needs some refactoring and rules about files. i'll try to see how to acheive multi-arch with it, but it seems quite complicated for now. (one of the goal is to go ARM, maybe the raspi, maybe something else)
+
+I think i'll try to add audio (ac97 and/or HDAudio) and network (rtl8139/69 for now).

@@ -1,0 +1,13 @@
+// HexagonOS folders organization
+
+// The names should be clear enough so you don't have to read this, though...
+
+/arch -> x86 or ARM specific code
+/bus -> PCI and USB code
+/devices -> PCI/USB/Whatelse device drivers
+/documentation -> cap'tain obvious to the rescue!
+/executables -> ELF (PE?) code
+/filesystems -> ext2 and whatelseFS code
+/include -> the .h files
+/kernel -> the kernel code
+/misc -> tests, random stuff...

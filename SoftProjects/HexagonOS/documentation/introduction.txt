@@ -1,0 +1,13 @@
+(i'm still questioning why i'm doing that, like somebody will ever see that hobby os...)
+
+HexagonOS is a desktop/laptop oriented experiment, it's basically just my toy to learn and play with os development, and that's all...
+
+It's not an UNIX-clone, and i still don't know if i'll use a standard libC, as i will probably be the only one who will ever write software on it... why i'll have to support that crappy legacy stuff, anyway? so, no TTY, no X11, etc...
+
+It's not even intented to be fully working or used by anyone, the architecture i described are only goals to keep a track of where i want to go, that's all... so don't expect a finished and polished product to replace your current OS.
+
+If you really want to play with some interesting alternative OS, go for HaikuOS, syllable, SkyOS or toaruOS/PonyOS (the pony favor, it's better with ponies), this one is just yet-another-crappy-kernel-made-by-only-one-guy :)
+
+If somebody ever read this and want to contribute... first, please check if you're not drunk, there's no right mind that will ever want to contribute to this one... and if you're really sure... well... go ahead, you're welcome :)
+
+And not, i'm not even drunk right now, just tired, and listening to some epic music (the katekyo hitman reborn OST)... and i don't feel like coding today, so... let's do that boring stuff when you can't code: the documentation!

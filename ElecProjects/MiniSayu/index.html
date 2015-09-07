@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MiniSayu</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">MiniSayu</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="starter-template">
+      	<h1>Lumiere</h1>
+  		<button type="button" class="btn btn-default btn-light btn-success">Allumer</button>
+       	<h1 class="coffee-title">Cafe</h1>
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default btn-coffee">1</button>
+		  <button type="button" class="btn btn-default btn-coffee">2</button>
+		  <button type="button" class="btn btn-default btn-coffee">3</button>
+		  <button type="button" class="btn btn-default btn-coffee">4</button>
+		  <button type="button" class="btn btn-default btn-coffee">5</button>
+		  <button type="button" class="btn btn-default btn-coffee">6</button>
+		</div>
+      </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    var isOn = false;
+    var didCoffee = false;
+	$.ajaxSetup({timeout: 10000});
+    $('.btn-light').click(function()
+    {
+    	var btn = this;
+ 		$.ajax({
+	        url: "http://localhost:8037/api",
+	        type: "POST",
+	        crossDomain: true,
+	        dataType: "xml",
+	        data: {data: (isOn)?'<?xml version="1.0"?><sayu version="0.1"><light id="0">OFF</light></sayu>':'<?xml version="1.0"?><sayu version="0.1"><light id="0">ON</light></sayu>'},
+	        success: function (response) {
+	         	if($(response).find("lightstatus").text() == "0")
+	         	{
+					$(btn).html("Allumer")
+					$(btn).removeClass("btn-danger");
+					$(btn).addClass("btn-success");
+	         	}
+				else
+				{
+					$(btn).html("Eteindre")
+					$(btn).removeClass("btn-success");
+					$(btn).addClass("btn-danger");
+				}
+	        },
+	        error: function (xhr, status, error) {
+	            console.log(error);
+	        }
+	    });
+    	isOn = !isOn;
+    });
+    $('.btn-coffee').click(function()
+    {
+    	if (!didCoffee)
+    	{
+			var btn = this;
+	 		$.ajax({
+			    url: "http://localhost:8037/api",
+			    type: "POST",
+			    crossDomain: true,
+			    dataType: "xml",
+			    data: {data: '<?xml version="1.0"?><sayu version="0.1"><coffee>'+$(btn).html()+'</coffee></sayu>'},
+			    success: function (response) {
+					$(".coffee-title").append(" DONE!");
+					didCoffee = true;
+			    },
+			    error: function (xhr, status, error) {
+			        console.log(error);
+			    }
+			});
+    	}
+    });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+# Plopbox sudoers part, edit the path with your left4dead2 path
+ALL ALL=(ALL) NOPASSWD: /path/to/l4d2/server_check.sh
+ALL ALL=(ALL) NOPASSWD: /path/to/l4d2/server_start.sh
+ALL ALL=(ALL) NOPASSWD: /path/to/l4d2/server_stop.sh
+ALL ALL=(ALL) NOPASSWD: /path/to/l4d2/server_restart.sh
+ALL ALL=(ALL) NOPASSWD: /path/to/l4d2/server_update.sh
+ALL ALL=(ALL) NOPASSWD: /path/to/l4d2/server_clean.sh
+ALL ALL=(ALL) NOPASSWD: /path/to/l4d2/server_list.sh
+ALL ALL=(ALL) NOPASSWD: /path/to/l4d2/server_install.sh

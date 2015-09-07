@@ -1,0 +1,40 @@
+// Syscalls list
+
+## File operations
+	file_open()
+	file_close()
+	file_read()
+	file_write()
+
+	file_delete()
+	file_move()
+	file_rename()
+
+	file_chmod()
+	file_chown()
+
+## Process operations
+	exit()
+	waitpid()
+	getpid()
+
+	exec()
+	fork()
+
+	pause()
+
+	signal_send()
+	signal_handler()
+
+
+## Misc
+	getuser()
+
+	mount()
+	umount()
+
+# Time
+	time()
+	set_time()
+
+	sleep()

@@ -1,0 +1,35 @@
+<?php
+	define('DB_HOST', 'HOST');
+	define('DB_USER', 'USER');
+	define('DB_PASS', 'PASS');
+	define('DB_NAME', 'DB');
+	define('SALT', 'SALT');
+	define('AES_KEY', 'AESKEY');
+	define('DEBUG', false);
+
+	// Teamspeak informations to display
+	define('TEAMSPEAK_SERVER', 'URL');
+	define('TEAMSPEAK_PASSWORD', 'PASSWORD');
+
+	// Teamspeak console informations
+	define('TEAMSPEAK_CONSOLE_SERVER', 'SERVER');
+	define('TEAMSPEAK_CONSOLE_LOGIN', 'LOGIN');
+	define('TEAMSPEAK_CONSOLE_PASSWORD', 'PASSWORD');
+	define('TEAMSPEAK_CONSOLE_PORT', '10011');
+
+	// Left4Dead2 Servers informations
+	define('L4D2_SERVER', 'URL');
+	define('L4D2_REGULAR', 'PORT');
+	define('L4D2_SUPERTANKS', 'PORT');
+
+	// Maps management informations
+	define('RAR_PATH', 'PATH/');
+	define('VPK_PATH', 'PATH/');
+	define('TMP_PATH', 'PATH/');
+
+	// Scripts informations
+	define('UNIX_USER', 'USER');
+	define('GAME_PATH', '/path/to/l4d2/');
+
+?>
+

@@ -1,0 +1,60 @@
+//LibKernel AKA. the internal functions used by the kernel.
+
+//Theses are the "external" functions of each part of the kernel, to be used by some parts or the drivers...
+
+// Syslog functions
+k_log(enum type, char *str, ...) // type = {error, success, info, warning}
+k_panic(char *str, ...)
+
+// Memory related functions
+k_mem_alloc(uint32_t size);
+k_mem_get_phys_addr(uintptr_t *virtual_addr);
+k_mem_free()
+k_mem_copy()
+
+// PCI related functions
+k_pci_get_io_addr(struct pci_device *device, uint8_t number)
+k_pci_get_device(uint8_t class_id, uint8_t subclass_id, uint16_t vendor_id, uint16_t device_id)
+
+// Sleep functions
+k_sleep_ns(uint8_t time)
+k_sleep_ms(uint8_t time)
+k_sleep_s(uint8_t time)
+
+// Filesystem functions
+k_fs_open(char *path)
+k_fs_list(char *path)
+k_fs_is_dir(char *path)
+
+// Interrupt functions
+k_int_create_isr()
+k_int_disable_soft()
+k_int_enable_soft()
+k_int_disable_hard()
+k_int_enable_hard()
+k_int_disable_all()
+k_int_enable_all()
+
+// Tasks functions
+k_task_load()
+k_task_kill()
+k_task_read()
+k_task_write()
+
+// Signals functions
+//k_signal_handle()
+k_signal_emit()
+
+// Hardware related functions
+k_hard_write_int8()
+k_hard_write_int16()
+k_hard_write_int32()
+k_hard_write_int64()
+k_hard_read_int8()
+k_hard_read_int16()
+k_hard_read_int32()
+k_hard_read_int64()
+
+// x86 platform functions
+
+// ARM platform functions

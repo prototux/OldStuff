@@ -1,0 +1,9 @@
+Naming convention for HexagonOS
+
+Kernel:
+
+Kernel's mini libC:
+The names should be in the form k_type_func
+Examples: k_pci_get_device, k_mem_alloc, etc...
+
+Drivers:
