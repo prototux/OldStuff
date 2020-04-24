@@ -1,0 +1,37 @@
+Sets structure:
+
+sets = {
+	name = (string),
+	file = (string),
+	games = [
+		{
+			name = (string),
+			description = (string),
+			roms = [
+				{
+					name = (string),
+					size = (int),
+					crc = (string),
+					md5 = (string),
+					sha1 = (string)
+				},
+				...
+			]
+		},
+		...
+	]
+}
+
+
+Files structure:
+
+files = [
+	{
+		name = (string),
+		size = (integer),
+		crc = (string),
+		md5 = (string),
+		sha1 = (string),
+	},
+	....
+]

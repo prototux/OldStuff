@@ -1,0 +1,83 @@
+! Load extentions
+URxvt.perl-lib:				/usr/lib/urxvt/perl/
+URxvt.perl-ext-common:		default,clipboard,url-select,keyboard-select
+
+! Terminal background
+URxvt.depth:				32
+URxvt.background:			#252525
+URxvt*.transparent:			true
+URxvt*.shading:				20
+
+! Random stuff
+URxvt*termName:				rxvt-unicode
+URxvt.urgentOnBell:			true
+URxvt.imLocale:				en_US.UTF-8
+URxvt.cursorBlink:			true
+
+! Borderless
+URxvt.borderless:			true
+URxvt*internalBorder:		0
+URxvt*externalBorder:		0
+
+! Remove the scrollbar
+URxvt*scrollBar_right:		false
+URxvt*scrollBar:			false
+
+! Open URL with uzbl
+URxvt.url-select.launcher:	/usr/local/bin/uzbl -u 
+URxvt.url-select.button:	1
+URxvt.url-select.underline:	true
+URxvt.keysym.M-j:			perl:url-select:select_next
+
+! Keyboard selection
+URxvt.keysym.M-Escape:		perl:keyboard-select:activate
+
+! Copy/Paste
+URxvt.iso14755:				False
+URxvt.keysym.M-c:			perl:clipboard:copy
+URxvt.keysym.M-v:			perl:clipboard:paste
+URxvt.clipboard.copycmd:	xclip -i
+URxvt.clipboard.pastecmd:	xclip -o
+
+! Font configuration
+URxvt.font:					xft:Source Code Pro:pixelsize=15:antialias=true:hinting=true,xft:Source Code Pro ptx:pixelsize=15:antialias=true:hinting=true
+URxvt.boldFont:				xft:Source Code Pro:semibold:pixelsize=15:antialias=true:hinting=true,xft:Source Code Pro ptx:pixelsize=15:antialias=true:hinting=true
+URxvt.letterSpace:			0
+
+! Cursor color
+URxvt*cursorColor:			#1E80CC
+
+! Foreground color:
+URxvt*foreground:			#f2f2f2
+
+! Black
+URxvt*color0:				#252525
+URxvt*color8:				#666666
+
+! Red
+URxvt*color1:				#e52222
+URxvt*color9:				#f72222
+
+! Green
+URxvt*color2:				#a6e32d
+URxvt*color10:				#9db92d
+
+! Yellow
+URxvt*color3:				#fc951e
+URxvt*color11:				#e89d20
+
+! Blue
+URxvt*color4:				#1e80cc
+URxvt*color12:				#208ad3
+
+! Magenta
+URxvt*color5:				#fa2573
+URxvt*color13:				#wf377d
+
+! Cyan
+URxvt*color6:				#67d9f0
+URxvt*color14:				#67ecf9
+
+! White
+URxvt*color7:				#f2f2f2
+URxvt*color15:				#ffffff

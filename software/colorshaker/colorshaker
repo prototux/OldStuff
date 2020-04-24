@@ -1,0 +1,58 @@
+#!/usr/bin/lua
+
+-- External modules
+local lfs = require("lfs")
+local cli = require("cliargs")
+
+-- Local modules
+package.path = package.path..";"..arg[0]:gsub("colorshaker$", "src/?.lua")
+local colors = require("colors")
+local template = require("template")
+local utils = require("utils")
+
+-- File formats aka what's inside ./formats/
+local formats = {}
+
+-- Set arguments
+cli:set_name("colorshaker")
+cli:option("-p, --palette=FILE", "Palette file", "palette.txt")
+cli:option("-t, --term=FILE", "Terminal color scheme file", "termcolors.txt")
+cli:option("-s, --syntax=FILE", "Syntax hightlighting file", "syntaxcolors.txt")
+cli:option("-o, --output=FOLDER", "Output folder", "output")
+cli:argument("NAME", "Name of the color scheme")
+
+-- Parse command line and check for errors
+local args, err = cli:parse(arg)
+if not args and err then
+	print(err)
+	os.exit(1)
+end
+
+-- Load the color files
+function readColor(path, parser)
+	local f = io.open(path, "r")
+	if f then
+		colors.parse(f:read("*all"), parser)
+		f:close()
+	else
+		print("[WARN] Color file "..path.." doesn't exist")
+	end
+end
+readColor(args.palette, colors.parsePalette)
+readColor(args.term, colors.parseTerm)
+readColor(args.syntax, colors.parseSyntax)
+
+-- Load the file formats modules
+package.path = package.path..";"..arg[0]:gsub("colorshaker$", "formats/?.lua")
+for filename in lfs.dir(arg[0]:gsub("colorshaker$", "formats")) do
+	if not filename:match("^(%.).*") then
+		local format = filename:match("(.*)%..*$")
+		formats[format] = require(format)
+	end
+end
+
+-- Generate the files
+for name, format in pairs(formats) do
+	template.config(name, colors.getAll(), format.color, args.NAME)
+	template.render(args.output.."/"..args.NAME.."_"..name..format.extension)
+end

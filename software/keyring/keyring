@@ -1,0 +1,159 @@
+#!/bin/zsh
+
+# Setup config file path
+CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/keyring/config"
+if [[ -f "$CONFIG_PATH" ]]; then
+	source "$CONFIG_PATH"
+else
+	PW_SIZE=16
+	GPG_ID=""
+	GPG_PW=""
+fi
+
+# Setup keyring path, and create folder if it doesn't exist (on first run)
+KEYRING="${XDG_DATA_HOME:-$HOME/.local/share}/keyring"
+if [[ ! -d "$KEYRING" ]]; then
+	mkdir "$KEYRING"
+fi
+
+# Setup git stuff
+export GIT_DIR="$KEYRING/.git"
+export GIT_WORK_TREE="$KEYRING"
+
+function usage() {
+	echo "usage: keyring [option] key"
+	echo "options:"
+	echo "\t-a\tadd a password"
+	echo "\t-e\tedit a password"
+	echo "\t-d\tdelete a password"
+	echo "\t-g [size]\tgenerate random password (doesn't ask for one)"
+	echo "\t-h\tprint this help"
+	echo "\t-l\tlist the passwords"
+}
+
+# Parse options
+while getopts "agg:del" opt; do
+	case "$opt" in
+		a)
+			ACTION="add"
+			;;
+		g)
+			if [[ -e $OPTARG ]]; then
+				PW_SIZE=$OPTARG
+			fi
+			PASSWORD=$(/usr/bin/apg -n 1 -q -a 1 -m "$PW_SIZE" -x "$PW_SIZE" -M SNCL -E "\\\"\'\ \`")
+			;;
+		d)
+			ACTION="delete"
+			;;
+		e)
+			ACTION="edit"
+			;;
+		l)
+			ACTION="list"
+			;;
+		h)
+			usage
+			exit 0
+			;;
+	esac
+done
+shift "$((OPTIND-1))"
+
+# Get key and create the whole path
+KEY=$1
+PWDPATH="$KEYRING/$KEY"
+
+# Ask for password if not already set (by -p or -g)
+function get_new_password() {
+	if [[ -z "$PASSWORD" ]]; then
+		read -s "PASSWORD?Password:"
+	fi
+	echo "$PASSWORD"
+}
+
+# Enumerate the keyring
+if [[ "$ACTION" == "list" ]]; then
+	echo "Keyring"
+	tree -C -l "$KEYRING" | tail -n +2 | head -n -2
+	exit 0
+fi
+
+# Every action below require a key, print the help if there's none
+if [[ -z $KEY ]]; then
+	usage
+	exit 0
+fi
+
+# Add a new password
+if [[ "$ACTION" == "add" ]]; then
+
+	# Check if the password doesn't already exists
+	if [[ -f "$PWDPATH" ]]; then
+		>&2 echo "Password already exists!"
+		exit 1
+	fi
+
+	# Create the directory (if needed) and set the password
+	mkdir -p "$(dirname "$PWDPATH")"
+	echo "$(get_new_password)" | /usr/bin/gpg --encrypt --recipient "$GPG_ID" --no-version > "$PWDPATH"
+	echo "\nPassword $KEY added"
+
+	# Add the file in git
+	if [[ -d "$GIT_DIR" ]]; then
+		git add "$PWDPATH"
+		git commit -qm "Added $KEY"
+		if [[ "$GIT_PUSH" == true ]]; then
+			git push -q
+		fi
+	fi
+fi
+
+# Every action below require the password to exist.
+if [[ ! -f "$PWDPATH" ]]; then
+	>&2 echo "ERROR: Password doesn't exist in keyring"
+	exit 1	
+fi
+
+# Delete the password
+if [[ "$ACTION" == "delete" ]]; then
+	read "CONFIRM?Delete password? [y/N]:"
+	if [[ "$CONFIRM" != "y" ]]; then
+		echo "Aborting"
+		exit 1
+	fi
+
+	rm "$PWDPATH"
+	echo "Password $KEY deleted"
+
+	if [[ -d "$GIT_DIR" ]]; then
+		git rm -qr "$PWDPATH"
+		git commit -qm "Deleted $KEY"
+		if [[ "$GIT_PUSH" == true ]]; then
+			git push -q
+		fi
+	fi
+	exit 0
+fi
+
+# Edit the password
+if [[ "$ACTION" == "edit" ]]; then
+
+	# Set the password
+	echo "$(get_new_password)" | /usr/bin/gpg --encrypt --recipient "$GPG_ID" --no-version > "$PWDPATH"
+	echo "\nPassword $KEY edited"
+	
+	# Edit the file in git
+	if [[ -d "$GIT_DIR" ]]; then
+		git commit -qam "Edited $KEY"
+		if [[ "$GIT_PUSH" == true ]]; then
+			git push -q
+		fi
+	fi
+	exit 0
+fi
+
+# Get the password
+if [[ -z "$ACTION" ]]; then
+	echo "$GPG_PW" | /usr/bin/gpg --decrypt --quiet --no-tty --passphrase-fd 0 -d "$PWDPATH"
+fi

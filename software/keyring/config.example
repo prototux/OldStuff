@@ -1,0 +1,4 @@
+PW_SIZE=16
+GPG_ID="your_gpg_key_id"
+GPG_PW="your_gpg_password"
+GIT_PUSH=true

@@ -1,0 +1,26 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\apathy]
+
+"Colour0"="{{>foreground}}"
+"Colour1"="{{>foreground}}"
+"Colour2"="{{>background}}"
+"Colour3"="{{>background}}"
+"Colour4"="{{>background}}"
+"Colour5"="{{>cursor}}"
+"Colour6"="{{>0}}"
+"Colour7"="{{>8}}"
+"Colour8"="{{>1}}"
+"Colour9"="{{>9}}"
+"Colour10"="{{>2}}"
+"Colour11"="{{>10}}"
+"Colour12"="{{>3}}"
+"Colour13"="{{>11}}"
+"Colour14"="{{>4}}"
+"Colour15"="{{>12}}"
+"Colour16"="{{>5}}"
+"Colour17"="{{>13}}"
+"Colour18"="{{>6}}"
+"Colour19"="{{>14}}"
+"Colour20"="{{>7}}"
+"Colour21"="{{>15}}"

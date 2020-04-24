@@ -1,0 +1,15 @@
+# Pixtie MOC configuration
+ReadTags = yes
+
+MusicDir = "/home/jason/Music"
+StartInMusicDir = yes
+
+ShowHiddenFiles = no
+HideFileExtension = yes
+
+Theme = pixie
+XTermTheme = pixie
+
+Layout1 = directory(0,0,100%,100%)
+
+SetXtermTitle = yes

@@ -1,0 +1,26 @@
+#!/usr/bin/env lua
+-- Quirinus: dat files tool
+
+local lfs = require("lfs")
+local cli = require("cliargs")
+local dat = require("dat")
+
+-- Command line arguments
+cli:set_name("quirinus")
+cli:argument("INPUT", "Path to the input file/folder")
+cli:option("-f, --output-format=FORMAT", "Output file format", "clrmamepro")
+cli:option("-o, --output-file=FILE", "Output file path", "-")
+cli:flag("-d", "Detect file format")
+cli:flag("-c", "Convert file")
+cli:flag("-n", "Create file from a folder containing roms")
+cli:flag("-l", "List supported formats")
+
+-- Parse command line and check for errors
+local args, err = cli:parse(arg)
+if not args and err then
+	print(err)
+	os.exit(1)
+end
+
+print("Init modules")
+dat.init()

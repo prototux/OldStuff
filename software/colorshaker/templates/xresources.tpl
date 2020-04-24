@@ -1,0 +1,20 @@
+*.foreground:   {{>foreground}}
+*.background:   {{>background}}
+*.cursorColor:  {{>cursor}}
+
+*.color0:       {{>0}}
+*.color8:       {{>8}}
+*.color1:       {{>1}}
+*.color9:       {{>9}}
+*.color2:       {{>2}}
+*.color10:      {{>10}}
+*.color3:       {{>3}}
+*.color11:      {{>11}}
+*.color4:       {{>4}}
+*.color12:      {{>12}}
+*.color5:       {{>5}}
+*.color13:      {{>13}}
+*.color6:       {{>6}}
+*.color14:      {{>14}}
+*.color7:       {{>7}}
+*.color15:      {{>15}}
